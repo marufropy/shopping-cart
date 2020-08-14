@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="removeItemOne" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="itemOneAmount" type="text" class="form-control text-center" value="1">
+                           <button id="addItemOne" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5>$ <span id="itemOneValue">1000</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="removeItemTwo" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="itemTwoAmount" type="text" class="form-control text-center" value="1">
+                           <button id="addItemTwo" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5>$ <span id="itemTwoValue">40</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -64,9 +64,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="subTotal">1040</span></h5>
+                        <h5>$ <span id="tax">104</span></h5>
+                        <h5>$ <span id="total">1144</span></h5>
                      </div>
                   </div>
                </div>
@@ -77,6 +77,65 @@
          </div>
       </div>
    </section>
+
+   <script>
+      const addItemOneBtn = document.getElementById("addItemOne");
+      addItemOneBtn.addEventListener("click",function(){
+         const itemNumber = getInputNumber("itemOneAmount");
+         document.getElementById("itemOneAmount").value = itemNumber + 1;
+
+         updateSpanText("itemOneValue", 1000);
+         updateSpanText("subTotal", 1000);
+         updateSpanText("tax", 100);
+         updateSpanText("total", 1100);
+      })
+
+      const removeItemOneBtn = document.getElementById("removeItemOne");
+      removeItemOneBtn.addEventListener("click",function(){
+         const itemNumber = getInputNumber("itemOneAmount");
+         document.getElementById("itemOneAmount").value = itemNumber - 1;
+
+         updateSpanText("itemOneValue", -1000);
+         updateSpanText("subTotal", -1000);
+         updateSpanText("tax", -100);
+         updateSpanText("total", -1100);
+      })      
+
+      const addItemTwoBtn = document.getElementById("addItemTwo");
+      addItemTwoBtn.addEventListener("click",function(){
+         const itemNumber = getInputNumber("itemTwoAmount");
+         document.getElementById("itemTwoAmount").value = itemNumber + 1;
+
+         updateSpanText("itemTwoValue", 40);
+         updateSpanText("subTotal", 40);
+         updateSpanText("tax", 4);
+         updateSpanText("total", 44);
+      })
+
+      const removeItemTwoBtn = document.getElementById("removeItemTwo");
+      removeItemTwoBtn.addEventListener("click",function(){
+         const itemNumber = getInputNumber("itemTwoAmount");
+         document.getElementById("itemTwoAmount").value = itemNumber - 1;
+
+         updateSpanText("itemTwoValue", -40);
+         updateSpanText("subTotal", -40);
+         updateSpanText("tax", -4);
+         updateSpanText("total", -44);
+      })
+
+      function getInputNumber(id){
+         const amount = document.getElementById(id).value;
+         const amountNumber = parseFloat(amount);
+         return amountNumber;
+      }      
+
+      function updateSpanText(id, number){
+         const current = document.getElementById(id).innerText;
+         const currentNumber = parseFloat(current);
+         const total = number + currentNumber;
+         document.getElementById(id).innerText = total;
+      }      
+   </script>
 </body>
 
 </html>
